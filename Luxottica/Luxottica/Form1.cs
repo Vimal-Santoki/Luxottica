@@ -547,7 +547,21 @@ namespace Luxottica
                     }
                 }
             }
-            if (BrandSteps == 4)
+            if (BrandSteps == 6)
+            {
+                HtmlElementCollection navs = webBrowser3.Document.GetElementsByTagName("nav");
+                foreach (HtmlElement nav in navs)
+                {
+                    if (nav.GetAttribute("classname").ToLower() == "view-type")
+                    {
+                        HtmlElementCollection lis = nav.GetElementsByTagName("li");
+                        BrandSteps = 4;
+                        lis[lis.Count - 1].GetElementsByTagName("a")[0].InvokeMember("click");
+                        break;
+                    }
+                }
+            }
+            else if (BrandSteps == 4)
             {
                 int tempCountStop = 0;
                 DelayExecution(5, true);
@@ -731,7 +745,7 @@ namespace Luxottica
                     {
                         if (div.GetAttribute("classname").ToLower() == "view-results")
                         {
-                            BrandSteps = 4;
+                            BrandSteps = 6;
                             div.GetElementsByTagName("a")[0].InvokeMember("click");
                         }
 
